@@ -1,0 +1,11 @@
+[project]
+name = "tree-vx"
+version = "0.1.0"
+description = "Simple binary search tree implementation with basic operations."
+requires-python = ">=3.8"
+readme = "README.md"
+license = { text = "MIT" }
+
+[tool.uv]
+exclude-newer = "2025-01-01"
+
