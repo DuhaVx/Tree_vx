@@ -6,8 +6,6 @@ from typing import Any, Optional, Tuple
 
 @dataclass
 class TreeNode:
-    """A node in the binary search tree."""
-
     key: Any
     value: Any
     left: Optional["TreeNode"] = None
@@ -18,14 +16,11 @@ class TreeNode:
 
 
 class BinarySearchTree:
-    """Binary Search Tree that stores key-value pairs."""
 
     def __init__(self) -> None:
         self.root: Optional[TreeNode] = None
 
-    # Public API
     def insert(self, key: Any, value: Any) -> None:
-        """Insert a key-value pair into the tree. Updates value if key exists."""
         if self.root is None:
             self.root = TreeNode(key, value)
             return
@@ -47,7 +42,6 @@ class BinarySearchTree:
                 current = current.right
 
     def search(self, key: Any) -> Optional[Any]:
-        """Return the value associated with key, or None if not found."""
         current = self.root
         while current:
             if key == current.key:
@@ -56,7 +50,6 @@ class BinarySearchTree:
         return None
 
     def delete(self, key: Any) -> bool:
-        """Delete the node with the given key. Returns True if removed."""
 
         def _delete(node: Optional[TreeNode], target: Any) -> Tuple[Optional[TreeNode], bool]:
             if node is None:
@@ -69,7 +62,6 @@ class BinarySearchTree:
                 node.right, removed = _delete(node.right, target)
                 return node, removed
 
-            # Node found: handle three structural cases
             if node.left is None and node.right is None:
                 return None, True
             if node.left is None:
@@ -77,7 +69,6 @@ class BinarySearchTree:
             if node.right is None:
                 return node.left, True
 
-            # Replace with in-order successor (smallest in right subtree)
             successor = node.right
             while successor.left:
                 successor = successor.left
@@ -89,13 +80,6 @@ class BinarySearchTree:
         return removed_flag
 
     def height(self) -> int:
-        """
-        Return the height of the tree.
-
-        Height is defined as the number of nodes on the longest path
-        from the root down to a leaf. Empty tree has height 0.
-        """
-
         def _height(node: Optional[TreeNode]) -> int:
             if node is None:
                 return 0
@@ -104,12 +88,6 @@ class BinarySearchTree:
         return _height(self.root)
 
     def is_balanced(self) -> bool:
-        """
-        Check whether the tree is height-balanced.
-
-        A balanced tree is one where the height difference between
-        the left and right subtrees of every node is at most 1.
-        """
 
         def _check(node: Optional[TreeNode]) -> Tuple[int, bool]:
             if node is None:
@@ -130,7 +108,6 @@ class BinarySearchTree:
 
 
 def _demo() -> None:
-    """Simple manual demonstration of the BST API."""
     tree = BinarySearchTree()
     for key, value in [(5, "root"), (3, "left"), (7, "right"), (2, "leaf"), (4, "mid")]:
         tree.insert(key, value)
